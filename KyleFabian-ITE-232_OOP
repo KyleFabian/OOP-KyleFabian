@@ -1,0 +1,101 @@
+package main;
+import java.util.Scanner;
+public class Banking {
+public static void main(String[]args) {
+	BankAcc BankACc= new BankAcc(" Kyle ","Fabian");
+	BankACc.showMenu();
+}
+}
+class BankAcc{
+	int balance;
+	int previousTransaction;
+	String CustomerName;
+	String CustomerID;
+	BankAcc(String cname, String cid){
+		 CustomerName= cname;
+		 CustomerID=cid;
+	}
+	void Deposit(int Amount) {
+		if(Amount!=0) {
+			balance=balance+Amount;
+			previousTransaction=Amount;
+		}
+	}
+	void Withdraw(int Amount) {
+		if(Amount!=0) {
+			balance=balance-Amount;
+			previousTransaction=-Amount;
+		}
+	}
+	void getPreviousTransaction() {
+		if(previousTransaction>0) {
+			System.out.println("Deposited:"+previousTransaction);
+		}else if (previousTransaction<0) {
+			System.out.println("Withdrawn"+Math.abs(previousTransaction));
+			
+		}else {
+			System.out.println("No Transaction Occured");
+		}
+	}
+	void showMenu(){
+		char option ='\0';
+		Scanner in = new Scanner(System.in);
+		System.out.println("Welcome"+CustomerName);
+		System.out.println("Your ID is "+ CustomerID);
+		System.out.println("\n");
+		System.out.println("A.ViewAccount/CheckBalance");
+		System.out.println("B.Deposit");
+		System.out.println("C.Withdraw");
+		System.out.println("D.Previous Transaction");
+		System.out.println("E.Exit");
+		do {
+			System.out.println("************************");
+			System.out.println("Enter An Option: ");
+			System.out.println("************************");
+			option=in.next().charAt(0);
+			System.out.println("\n");
+			switch(option){
+			case 'A':
+				System.out.println("------------------------");
+				System.out.println("Here's your current balance: "+balance);
+				System.out.println("------------------------");
+				System.out.println("\n");
+				break;
+			case'B':
+				System.out.println("------------------------");
+				System.out.println("Enter An Amount to Deposit: ");
+				System.out.println("------------------------");
+				int amount=in.nextInt();
+				Deposit(amount);
+				System.out.println("Deposited successfuly!");
+				System.out.println("\n");
+				
+				break;
+			case 'C':
+				System.out.println("------------------------");
+				System.out.println("Enter An Amount to Withdraw: ");
+				System.out.println("------------------------");
+				int Amount2=in.nextInt();
+				Withdraw(Amount2);
+				System.out.println(" Withdrawn successfuly!");
+				System.out.println("\n");
+				
+				break;
+			case'D':
+				System.out.println(" Here's your previous transaction!: ");
+				getPreviousTransaction();
+				
+				break;
+			case 'E':	
+				System.out.println("------------------------");
+				break;
+			default:
+				System.out.println("Invalid Option!Try Again ");
+				break;
+			}
+		}while (option!='E');
+		System.out.println("Thank you! ");
+		in.close();
+	}
+	
+}
